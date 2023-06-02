@@ -17,12 +17,12 @@ competition Competition;
 // define your global instances of motors and other devices here
 brain Brain;
 controller Controller1 = controller(primary);
-motor LFMotor = motor(PORT1, ratio6_1, false);
-motor RFMotor = motor(PORT2, ratio6_1, true);
-motor LBUMotor = motor(PORT3, ratio6_1, true);
-motor RBUMotor = motor(PORT4, ratio6_1, false);
-motor LBDMotor = motor(PORT5, ratio6_1, false);
-motor RBDMotor = motor(PORT6, ratio6_1, true);
+motor LFMotor = motor(PORT20, ratio6_1, true);
+motor RFMotor = motor(PORT11, ratio6_1, false);
+motor LBUMotor = motor(PORT9, ratio6_1, false);
+motor RBUMotor = motor(PORT2, ratio6_1, true);
+motor LBDMotor = motor(PORT10, ratio6_1, true);
+motor RBDMotor = motor(PORT1, ratio6_1, false);
 
 
 /*---------------------------------------------------------------------------*/
@@ -80,12 +80,12 @@ void usercontrol(void) {
     if(abs(right_x) < deadzone) right_x = 0;
     else if(abs(left_y) < deadzone) left_y = 0;
 
-    RFMotor.spin(vex::directionType::fwd, (left_y-right_x)*3, rpm);
-    RBUMotor.spin(vex::directionType::fwd, (left_y-right_x)*3, rpm);
-    RBDMotor.spin(vex::directionType::fwd, (left_y-right_x)*3, rpm);
-    LFMotor.spin(vex::directionType::fwd, (left_y+right_x)*3, rpm);
-    LBUMotor.spin(vex::directionType::fwd, (left_y+right_x)*3, rpm);
-    LBDMotor.spin(vex::directionType::fwd, (left_y+right_x)*3, rpm);
+    RFMotor.spin(vex::directionType::fwd, (left_y-right_x)*5, rpm);
+    RBUMotor.spin(vex::directionType::fwd, (left_y-right_x)*5, rpm);
+    RBDMotor.spin(vex::directionType::fwd, (left_y-right_x)*5, rpm);
+    LFMotor.spin(vex::directionType::fwd, (left_y+right_x)*5, rpm);
+    LBUMotor.spin(vex::directionType::fwd, (left_y+right_x)*5, rpm);
+    LBDMotor.spin(vex::directionType::fwd, (left_y+right_x)*5, rpm);
 
     wait(20, msec);
   }
