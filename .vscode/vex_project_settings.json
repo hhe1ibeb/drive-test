@@ -1,0 +1,18 @@
+{
+	"extension": {
+		"version": "0.4.1",
+		"json": 1
+	},
+	"project": {
+		"name": "drive-test",
+		"description": "",
+		"creationDate": "4/28/2023, 10:42:45 PM",
+		"platform": "V5",
+		"language": "cpp",
+		"slot": 1,
+		"sdkVersion": "V5_20220726_10_00_00",
+		"cpp": {
+			"includePath": []
+		}
+	}
+}

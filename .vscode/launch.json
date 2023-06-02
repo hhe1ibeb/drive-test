@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/elainehou29/Development/vex/vexcode-projects/over under/drive-test",
+      "program": "/Users/elainehou29/Development/vex/vexcode-projects/over under/drive-test/build/Debug/outDebug"
+    }
+  ]
+}
