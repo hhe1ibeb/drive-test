@@ -71,38 +71,44 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 const int deadzone = 5;
+bool cmode = true; // 1 tank mode 0 arcade mode
 
 void usercontrol(void) {
   while (1) {
-    int left_y = Controller1.Axis3.position(percent);
-    int right_x = Controller1.Axis1.position(percent);
+    int left_speed, right_speed;
 
-    if(abs(right_x) < deadzone) right_x = 0;
-    else if(abs(left_y) < deadzone) left_y = 0;
+    if(Controller1.ButtonDown.pressing()){
+      cmode = !cmode;
+      wait(500, msec);
+    }
 
-    RFMotor.spin(vex::directionType::fwd, (left_y-right_x)*5, rpm);
-    RBUMotor.spin(vex::directionType::fwd, (left_y-right_x)*5, rpm);
-    RBDMotor.spin(vex::directionType::fwd, (left_y-right_x)*5, rpm);
-    LFMotor.spin(vex::directionType::fwd, (left_y+right_x)*5, rpm);
-    LBUMotor.spin(vex::directionType::fwd, (left_y+right_x)*5, rpm);
-    LBDMotor.spin(vex::directionType::fwd, (left_y+right_x)*5, rpm);
+    if(cmode){
+      left_speed = Controller1.Axis3.position(percent) * 5;
+      right_speed = Controller1.Axis2.position(percent) * 5;
+    } else{
+      left_speed = (Controller1.Axis3.position(percent) + Controller1.Axis1.position(percent)) * 5;
+      right_speed = (Controller1.Axis3.position(percent) - Controller1.Axis1.position(percent)) * 5;
+    }
+
+    if(abs(right_speed) < deadzone) right_speed = 0;
+    else if(abs(left_speed) < deadzone) left_speed = 0;
+
+    RFMotor.spin(vex::directionType::fwd, right_speed, rpm);
+    RBUMotor.spin(vex::directionType::fwd, right_speed, rpm);
+    RBDMotor.spin(vex::directionType::fwd, right_speed, rpm);
+    LFMotor.spin(vex::directionType::fwd, left_speed, rpm);
+    LBUMotor.spin(vex::directionType::fwd, left_speed, rpm);
+    LBDMotor.spin(vex::directionType::fwd, left_speed, rpm);
 
     wait(20, msec);
   }
 }
-
-//
-// Main will set up the competition functions and callbacks.
-//
 int main() {
-  // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
-  // Run the pre-autonomous function.
   pre_auton();
 
-  // Prevent main from exiting with an infinite loop.
   while (true) {
     wait(100, msec);
   }
